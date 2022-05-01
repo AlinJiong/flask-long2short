@@ -1,0 +1,21 @@
+version: "2"
+services:
+  flask:
+    build: ./app
+    volumes:
+      - ./app:/app
+    links:
+      - db
+    ports:
+      - "5000:5000"
+  db:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - "3310:3306"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro
+    environment:
+      MYSQL_ROOT_PASSWORD: "mysql824."
+      MYSQL_DATABASE: test
+      TZ: Asia/Shanghai
